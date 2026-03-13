@@ -10,8 +10,8 @@
      flex-direction: column;
      justify-content: center;
      align-items: center;
-     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    }
+     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+ }
 
 
  h1 {
@@ -68,7 +68,39 @@
      background-color: bisque;
      border-radius: 5px;
      border: solid rgba(0, 0, 0, 0.397) 2px;
-     width: 100px;
+     width: 150px;
+     color: rgb(61, 61, 61);
+     font-size: 15px;
+     font-style: italic;
+     font-weight: bold;
+ }
+
+ .overlay {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     height: 100%;
+     background-color: rgba(0, 0, 0, 0.5);
+     display: none;
+     /*o item não esteja visível*/
+     align-items: center;
+     justify-content: center;
+ }
+
+ .modal {
+     background-color: rgba(255, 235, 205, 0.438);
+     padding: 30px;
+     border-radius: 7px;
+     text-align: center;
+     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+ }
+
+ .modal button {
+     background-color: bisque;
+     border-radius: 5px;
+     border: solid rgba(0, 0, 0, 0.397) 2px;
+     width: 150px;
      color: rgb(61, 61, 61);
      font-size: 15px;
      font-style: italic;
