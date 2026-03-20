@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Atleta</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="Js/script.js"></script>
+    <script src="Js/auth.js"></script>
+</head>
+<body class="login-body">
+    <!--Tela de fundo preta que fica aparecendo quando emite um alert pro usuário-->
+    <!--posicao fixa, nao afetado pelo flexbox-->
+    <div id="overlay" class="overlay" style="display: none;">
+        <div class="modal" > <!--alert customizado-->
+            <p id="mensagem"></p>
+            <button class="button-error" onclick="fecharOverlay()">Fechar</button>
+        </div>
+    </div>
+    <main> <!--Onde fica o conteúdo principal da nossa página-->
+        <div class="loginContainer">
+            <form id="form-login" onsubmit="login(event)">
+                <h1 class="h1-login"> <!--Títulos-->
+                Login
+                </h1>
+                <div class="inputs">
+                    <div class="grupoLabelInput">
+                        <label for="input-nome">Usuário</label>
+                        <input id="input-nome" placeholder="usuario ou e-mail" type="text" required>
+                        <p id="warning-username" class="warning-message">Nome de Usuário deve conter no mínimo 4 caracteres</p>
+                    </div>
+                    
+                    <div class="grupoLabelInput">
+                        <label for="input-senha">Senha</label>
+                        <input id="input-senha" placeholder="senha" type="password" required>
+                    </div>
+                </div>
+                <button class="button-login" id="btn-login" type="submit">
+                    Login
+                </button>
+                
+                <!--
+                <button onclick="verCadastrados()" class="button-cadastrados">
+                    Ver Cadastrados
+                </button>
+                -->
+            </form>
+        </div>
+        
+    </main>
+    <footer>
+            Copywright 2026 © Todos os direitos reservados
+    </footer>
+
+    <script>
+         if(verificarLogado()){
+            window.location.href = "dashboard.html"
+        }
+    </script>
+    
+</body>
+</html>
