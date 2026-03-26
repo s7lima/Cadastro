@@ -22,7 +22,6 @@ main {
 }
 
 /* CONTAINERS LOGIN */
-
 .loginContainer {
     flex: 1;
     display: flex;
@@ -114,9 +113,7 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-
     background-color: rgba(0, 0, 0, 0.5);
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -159,7 +156,6 @@ footer {
     box-shadow: none;
 }
 
-
 /* ABAS */
 .abas {
     display: flex;
@@ -179,8 +175,8 @@ footer {
 
 /* CONTAINER */
 .container {
-    width: 90%;
-    max-width: 700px;
+    width: 100%;
+    max-width: 900px;
     margin: 0 auto 20px auto;
     padding: 20px;
 
@@ -208,7 +204,7 @@ footer {
     text-transform: uppercase;
 }
 
-/* LINHAS (CORREÇÃO PRINCIPAL) */
+/* LINHAS */
 .linha {
     display: flex;
     gap: 10px;
@@ -219,24 +215,47 @@ footer {
     flex: 1;
 }
 
-/* LISTA */
-#listaUsuarios {
-    list-style: none;
-    margin-top: 10px;
+/* ===== LISTAGEM AJUSTADA (SEM ESTOURAR) ===== */
+
+#container-lista {
+    max-width: 1000px; /* mantém padrão do seu layout */
+    overflow: hidden;
 }
 
-#listaUsuarios li {
-    background-color: rgba(255, 228, 196, 0.363);
-    border: solid rgba(0, 0, 0, 0.2) 1px;
-    border-radius: 5px;
-    padding: 8px;
-    margin-bottom: 5px;
+/* tabela ocupa só o espaço disponível */
+.tabela {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.65rem; /* menor pra caber tudo */
+    table-layout: fixed; /* ESSENCIAL */
 }
 
-/* BOTÃO CENTRALIZADO */
-#container-cadastro button {
-    align-self: center;
-    margin-top: 15px;
+/* cabeçalho */
+.tabela th {
+    background-color: #f5d7b2;
+    padding: 6px;
+    border: 1px solid rgba(0,0,0,0.2);
+    text-align: center;
+    word-wrap: break-word;
+}
+
+/* células */
+.tabela td {
+    padding: 5px;
+    border: 1px solid rgba(0,0,0,0.2);
+    text-align: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* zebra */
+.tabela tr:nth-child(even) {
+    background-color: rgba(0,0,0,0.05);
+}
+
+/* hover */
+.tabela tr:hover {
+    background-color: rgba(0,0,0,0.1);
 }
 
 /* RESPONSIVO */

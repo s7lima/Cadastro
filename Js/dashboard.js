@@ -1,45 +1,40 @@
 //Quando a minha tela carregar o conteúdo
 document.addEventListener("DOMContentLoaded", function () {
 
-    if(!verificarLogado()){
+    if (!verificarLogado()) {
         window.location.href = "login.html"
     }
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 
-    const lista = document.getElementById("listaUsuarios");
-
-    if(usuarios.length === 0){
-
-        const li = document.createElement("li");
-        li.textContent = "Nenhum usuário cadastrado.";
-        lista.appendChild(li);
-
-    }else{
-
-        usuarios.forEach(usuario => {
-
-            const li = document.createElement("li");
-
-            li.textContent = usuario.nome + " - " + usuario.email;
-
-            lista.appendChild(li);
-
-        });
-
-    }
+    // inicia na tela de cadastro (sem carregar tabela)
     onCadastrarClick();
+
+    // ❌ REMOVIDO: carregarTabela();
+
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+            fecharPerfil();
+        }
+    });
+
+    const perfil = document.getElementById("perfil");
+    document.addEventListener("mousedown", function (e) {
+        if (!perfil || !perfil.contains(e.target)) {
+            fecharPerfil();
+        }
+    });
 });
 
-
-function voltar(){
+function voltar() {
     window.location.href = "login.html";
     logout();
 }
 
-function onListarClick(){
+// 👉 BOTÃO LISTAR (AGORA CARREGA A TABELA)
+function onListarClick() {
     const element = document.getElementById("btn-listar");
     element.classList.remove("btn-aba");
     element.classList.add("btn-aba-selecionado");
+
     document.getElementById("btn-cadastrar").classList.add("btn-aba");
     document.getElementById("btn-cadastrar").classList.remove("btn-aba-selecionado");
 
@@ -48,11 +43,17 @@ function onListarClick(){
 
     const containerCadastro = document.getElementById("container-cadastro");
     containerCadastro.style.display = "none";
+
+    // ✅ Só carrega aqui
+    carregarTabela();
 }
-function onCadastrarClick(){
+
+// 👉 BOTÃO CADASTRAR
+function onCadastrarClick() {
     const element = document.getElementById("btn-cadastrar");
     element.classList.remove("btn-aba");
     element.classList.add("btn-aba-selecionado");
+
     document.getElementById("btn-listar").classList.add("btn-aba");
     document.getElementById("btn-listar").classList.remove("btn-aba-selecionado");
 
@@ -63,54 +64,79 @@ function onCadastrarClick(){
     containerCadastro.style.display = "flex";
 }
 
-function cadastrarAtleta(event){
-    event.preventDefault(); //nao recarregar a pagina
+// 👉 CADASTRAR ATLETA
+function cadastrarAtleta(event) {
+    event.preventDefault();
 
-    //Atleta
-
-    let nome = getElementValue("input-nome-atleta");
-    let nacionalidade = getElementValue("input-nacionalidade");
-    let dtNascimento = getElementValue("input-dtNascimento");
-    let cpf = getElementValue("input-cpf");
-    let modalidade = getElementValue("input-modalidade");
-    let genero = getElementValue("input-genero");
-    let categoria = getElementValue("input-categoria");
-    let peso = getElementValue("input-peso");
-    let altura = getElementValue("input-altura");
-    let tipoSanguineo = getElementValue("input-tipoSanguineo");
-    let alergias = getElementValue("input-alergias");
-    let historico = getElementValue("input-historico");
-
-  
-    const atleta = { //Criando um objeto atleta que não é mapeado automaticamente
-        nome: nome,
-        nacionalidade: nacionalidade,
-        dtNascimento: dtNascimento,
-        cpf: cpf,
-        modalidade : modalidade,
-        genero : genero,
-        categoria : categoria,
-        peso : peso,
-        altura : altura,
-        tipoSanguineo : tipoSanguineo,
-        alergias : alergias,
-        historico : historico
+    let atleta = {
+        nome: getElementValue("input-nome-atleta"),
+        nacionalidade: getElementValue("input-nacionalidade"),
+        dtNascimento: getElementValue("input-dtNascimento"),
+        cpf: getElementValue("input-cpf"),
+        modalidade: getElementValue("input-modalidade"),
+        genero: getElementValue("input-genero"),
+        categoria: getElementValue("input-categoria"),
+        peso: getElementValue("input-peso"),
+        altura: getElementValue("input-altura"),
+        tipoSanguineo: getElementValue("input-tipoSanguineo"),
+        alergias: getElementValue("input-alergias"),
+        historico: getElementValue("input-historico")
     };
 
-    //Tenta ler os dados da lista de atletas, se ela não existir, devolve uma vazia
     let atletas = JSON.parse(localStorage.getItem("atletas")) || [];
 
-    //adiciona o atleta na lista de atletas
     atletas.push(atleta);
 
-    //atualiza ou cria a lista no localStorage com o formato de JSON
     localStorage.setItem("atletas", JSON.stringify(atletas));
 
-    setElementText("mensagem","Dados do " + nome + " cadastrados!");
-    setElementDisplay("overlay","flex");
+    setElementText("mensagem", "Dados do " + atleta.nome + " cadastrados!");
+    setElementDisplay("overlay", "flex");
+
     resetFormCadastroAtleta();
 }
 
-function resetFormCadastroAtleta(){
-    document.getElementById("container-cadastro").reset(); // limpa todos os campos
+// 👉 LIMPAR FORMULÁRIO
+function resetFormCadastroAtleta() {
+    document.getElementById("container-cadastro").reset();
+}
+
+// 👉 PERFIL
+function abrirPerfil() {
+    let menu = document.getElementById("perfil");
+    if (menu.style.display != "flex")
+        setElementDisplay("perfil", "flex");
+}
+
+function fecharPerfil() {
+    setElementDisplay("perfil", "none");
+}
+
+// 👉 CARREGAR TABELA (SÓ QUANDO CHAMADO)
+function carregarTabela() {
+    let atletas = JSON.parse(localStorage.getItem("atletas")) || [];
+
+    let body = document.getElementById("tabela-atletas-body");
+
+    if (atletas.length === 0) {
+        body.innerHTML = "<tr><td colspan='12'>Nenhum Atleta Encontrado.</td></tr>";
+    } else {
+        body.innerHTML = atletas.map(function (atleta) {
+            return `
+                <tr>
+                    <td>${atleta.nome}</td>
+                    <td>${atleta.nacionalidade}</td>
+                    <td>${atleta.dtNascimento}</td>
+                    <td>${atleta.cpf}</td>
+                    <td>${atleta.modalidade}</td>
+                    <td>${atleta.genero}</td>
+                    <td>${atleta.categoria}</td>
+                    <td>${atleta.peso}</td>
+                    <td>${atleta.altura}</td>
+                    <td>${atleta.tipoSanguineo}</td>
+                    <td>${atleta.alergias}</td>
+                    <td>${atleta.historico}</td>
+                </tr>
+            `;
+        }).join("");
+    }
 }

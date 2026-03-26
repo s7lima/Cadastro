@@ -25,14 +25,36 @@
         <button id="btn-cadastrar" class="btn-aba" onclick="onCadastrarClick()">Cadastrar</button>
         <button id="btn-listar" class="btn-aba" onclick="onListarClick()">Listar</button>
     </nav>
+
     <div id="container-lista" class="container">
         <h1>Atletas Cadastrados</h1>
-        <ul id="listaUsuarios">
-        </ul>
+        <div class="container">
+            <table class="tabela" id="tabela-atletas">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Nacionalidade</th>
+                        <th>Data de Nascimento</th>
+                        <th>Cpf</th>
+                        <th>Modalidade</th>
+                        <th>Gênero</th>
+                        <th>Categoria</th>
+                        <th>Peso</th>
+                        <th>Altura</th>
+                        <th>Tipo Sanguíneo</th>
+                        <th>Alergias</th>
+                        <th>Histórico</th>
+                    </tr>
+                </thead>
+                <tbody id="tabela-atletas-body">
+                </tbody>
+            </table>
+        </div>
         <button class="button-cadastrados" onclick="voltar()">
             Sair
         </button>
     </div>
+
     <form id="container-cadastro" class="container" onsubmit="cadastrarAtleta(event)">
         <h1 class="titulo">Cadastrar Atleta</h1>
         <h4 class="subtitulo">
