@@ -24,6 +24,9 @@
     <nav id="abas" class="abas">
         <button id="btn-cadastrar" class="btn-aba" onclick="onCadastrarClick()">Cadastrar</button>
         <button id="btn-listar" class="btn-aba" onclick="onListarClick()">Listar</button>
+        <button id="button-cadastrados" class="btn-aba" onclick="voltar()">
+            Sair
+        </button>
     </nav>
 
     <div id="container-lista" class="container">
@@ -50,9 +53,6 @@
                 </tbody>
             </table>
         </div>
-        <button class="button-cadastrados" onclick="voltar()">
-            Sair
-        </button>
     </div>
 
     <form id="container-cadastro" class="container" onsubmit="cadastrarAtleta(event)">
